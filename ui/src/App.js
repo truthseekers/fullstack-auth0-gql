@@ -1,22 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useQuery, gql } from "@apollo/client";
+import Todo from "./Todo";
+
+export const TODOS_QUERY = gql`
+  query TODOS_QUERY {
+    todos {
+      title
+      id
+    }
+  }
+`;
 
 function App() {
+  const { data, loading, error } = useQuery(TODOS_QUERY);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <ul>
+          {data.todos.map((todo) => {
+            return <Todo key={todo.id} id={todo.id} title={todo.title} />;
+          })}
+        </ul>
       </header>
     </div>
   );
