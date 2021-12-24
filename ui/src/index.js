@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ApolloWrapper from "./ApolloWrapper";
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloWrapper>
-      <App />
-    </ApolloWrapper>
+    <Auth0ProviderWithHistory>
+      <ApolloWrapper>
+        <App />
+      </ApolloWrapper>
+    </Auth0ProviderWithHistory>
   </React.StrictMode>,
   document.getElementById("root")
 );
