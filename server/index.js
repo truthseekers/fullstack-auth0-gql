@@ -19,6 +19,9 @@ const typeDefs = gql`
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: async ({ req, ...res }) => {
+    console.log("headers auth: ", req.headers.authorization);
+  },
 });
 
 server.listen().then(({ url }) => {

@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         {isAuthenticated ? (
-          <button>logout</button>
+          <button onClick={() => logout()}>logout</button>
         ) : (
           <button onClick={() => loginWithRedirect()}>login</button>
         )}
