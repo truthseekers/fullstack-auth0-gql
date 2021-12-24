@@ -32,6 +32,9 @@ function App() {
         ) : (
           <button onClick={() => loginWithRedirect()}>login</button>
         )}
+        {!isAuthenticated && (
+          <span>dont touch that form you aren't even logged in</span>
+        )}
         <AddTodo />
         <ul>
           {data.todos.map((todo) => {
