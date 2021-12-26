@@ -10,6 +10,20 @@ Linux, Docker & Kubernetes, React.js, GraphQL, SQL, Mongo, Emacs & more. Anythin
 
 ## [Join our community by signing up for our newsletter!](https://truthseekers.io/latest-tutorials-signup/)
 
+## branches in order (I think)
+
+1. master (?)
+2. basic-gql-server-done (?)
+3. ui-queries-setup
+4. step-three-ui-mutations-setup
+5. four-start-frontend-auth
+6. five-basic-frontend-auth-works
+7. six-send-bearertoken-to-server
+8. verifyToken (?)
+9. require-auth-in-server (?)
+10. userinfo-on-server (?)
+11. final-redirect-user-on-login ** This is the completed code **
+
 ### Instructions
 
 cd server/ && npm install
