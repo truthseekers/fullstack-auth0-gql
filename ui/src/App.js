@@ -30,7 +30,13 @@ function App() {
         {isAuthenticated ? (
           <button onClick={() => logout()}>logout</button>
         ) : (
-          <button onClick={() => loginWithRedirect()}>login</button>
+          <button
+            onClick={() =>
+              loginWithRedirect({ appState: { targetUrl: "broilikepie" } })
+            }
+          >
+            login
+          </button>
         )}
         {!isAuthenticated && (
           <span>dont touch that form you aren't even logged in</span>
