@@ -20,17 +20,18 @@ const typeDefs = gql`
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req, ...res }) => {
+  context: async ({ req, ...rest }) => {
     let isAuthenticated = false;
-    let user = null;
+    let token;
 
     try {
       const authHeader = req.headers.authorization || "";
 
       if (authHeader) {
-        const token = authHeader.split(" ")[1];
+        token = authHeader.split(" ")[1];
 
         const payload = await verifyToken(token);
+        isAuthenticated = payload ? true : false;
 
         console.log("payload: ", payload);
       }
@@ -39,6 +40,8 @@ const server = new ApolloServer({
     }
 
     console.log("headers auth: ", req.headers.authorization);
+
+    return { ...rest, req, auth: { isAuthenticated, token } };
   },
 });
 

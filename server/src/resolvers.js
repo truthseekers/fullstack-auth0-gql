@@ -1,4 +1,5 @@
 const { db } = require("./models");
+const { AuthenticationError } = require("apollo-server");
 
 const resolvers = {
   Query: {
@@ -8,6 +9,9 @@ const resolvers = {
   },
   Mutation: {
     createTodo(parent, args, context, info) {
+      if (!context.auth.isAuthenticated) {
+        throw new AuthenticationError("Must Be Logged in!");
+      }
       return db.addTodo(args);
     },
   },
