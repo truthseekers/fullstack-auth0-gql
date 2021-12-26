@@ -3,7 +3,10 @@ const { AuthenticationError } = require("apollo-server");
 
 const resolvers = {
   Query: {
-    todos(parent, args, context, info) {
+    async todos(parent, args, context, info) {
+      let currentUser = await context.dataSources.auth0API.getInfo();
+      console.log("currentUser from the query todos resolver: ", currentUser);
+
       return db.getTodos();
     },
   },

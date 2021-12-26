@@ -1,6 +1,30 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { resolvers } = require("./src/resolvers");
 const { verifyToken } = require("./src/utils/verifyToken");
+const { RESTDataSource } = require("apollo-datasource-rest");
+
+class Auth0API extends RESTDataSource {
+  constructor() {
+    super();
+    this.baseURL = `https://${process.env.AUTH0_DOMAIN}/`;
+  }
+
+  async getInfo() {
+    try {
+      const response = await this.get("userinfo");
+      console.log("Hello in getInfo. response: ", response);
+      return response;
+    } catch (err) {
+      console.log("getInfo error: ", err);
+      return err;
+    }
+  }
+
+  willSendRequest(request) {
+    console.log("in willSendRequest");
+    request.headers.set("Authorization", `Bearer ${this.context.auth.token}`);
+  }
+}
 
 const typeDefs = gql`
   type Todo {
@@ -20,6 +44,9 @@ const typeDefs = gql`
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources: () => ({
+    auth0API: new Auth0API(),
+  }),
   context: async ({ req, ...rest }) => {
     let isAuthenticated = false;
     let token;
