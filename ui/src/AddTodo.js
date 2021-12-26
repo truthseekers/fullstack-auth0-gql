@@ -37,6 +37,7 @@ function AddTodo() {
         onChange={(e) => setTitle(e.target.value)}
       />
       <button onClick={addNewTodo}>Submit</button>
+      {error && <p style={{ color: "red" }}>{error.message}</p>}
     </div>
   );
 }
